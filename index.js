@@ -3,6 +3,7 @@ const app = express();
 const port = 8000;
 
 const expressLayouts = require('express-ejs-layouts');
+const db = require('./config/mongoose');
 
 //Use Css, JS, Images from assets directory
 app.use(express.static('./assets'));
