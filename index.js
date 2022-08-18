@@ -4,8 +4,16 @@ const port = 8000;
 
 const expressLayouts = require('express-ejs-layouts');
 
+//Use Css, JS, Images from assets directory
+app.use(express.static('./assets'));
+
 //Use express layouts
 app.use(expressLayouts);
+
+//Extract styles and scripts from body of sub pages
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
+
 
 app.use('/', require('./routes'));
 
