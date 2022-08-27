@@ -1,9 +1,17 @@
 const express = require('express');
 const app = express();
 const port = 8000;
+const cookieParser = require('cookie-parser');
 
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
+
+//Middleware to encode post request URL
+app.use(express.urlencoded());
+
+//Middleware to use cookies
+app.use(cookieParser());
+
 
 //Use Css, JS, Images from assets directory
 app.use(express.static('./assets'));
