@@ -6,7 +6,10 @@ module.exports.profile = function(req,res){
 
     if(req.cookies.user_id){
         User.findById(req.cookies.user_id, function(err, user){
-            if(err){console.log("error"); return;};
+            if(err){
+                console.log('error: ',err);
+                // return res.redirect('/users/signin');
+            };
 
             if(user){
                 return res.render('users_profile',{
@@ -16,14 +19,14 @@ module.exports.profile = function(req,res){
             }
 
             else{
-                return res.redirect('users/signin');
+                return res.redirect('/users/signin');
             }
-        })
+        });
     }
 
     else{
         return res.redirect('/users/signin');
-    }
+    };
     
 };
 
