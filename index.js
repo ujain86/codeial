@@ -19,12 +19,12 @@ app.use(express.static('./assets'));
 //Use express layouts
 app.use(expressLayouts);
 
+app.use('/', require('./routes'));
+
 //Extract styles and scripts from body of sub pages
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
-
-app.use('/', require('./routes'));
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
