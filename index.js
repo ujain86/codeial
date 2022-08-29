@@ -10,6 +10,7 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo');
 
 //Middleware to encode post request URL
 app.use(express.urlencoded());
@@ -40,7 +41,17 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: (1000 * 60 * 100) //in miliseconds
-    }
+    },
+    //MongoStore is used to store cookies in the db
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/codeial_development',
+        mongooseConnection: db,
+        autoRemove: 'disabled'
+    },
+    function(err){
+        console.log( err || 'connect-mongoDB setup ok');
+    }        
+    )
 }));
 
 app.use(passport.initialize());
