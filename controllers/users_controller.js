@@ -15,14 +15,23 @@ module.exports.name = function(req,res){
 
 //Render the SignUp page
 module.exports.signUp = function(req,res){
-    res.render('signup', {
+
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+     return res.render('signup', {
         title: 'Signup'
     });
 };
 
 //Render the SignIn page
 module.exports.signIn = function(req,res){
-    res.render('signIn', {
+
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
+    return res.render('signIn', {
         title: 'Login'
     });
 };
@@ -59,4 +68,10 @@ module.exports.createUser = function(req,res){
     });
 
     };
+
+
+// sign in and create a session for the user
+module.exports.createSession = function(req, res){
+    return res.redirect('/');
+}
 
