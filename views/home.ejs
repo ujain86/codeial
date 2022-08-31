@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/home.css">
 <h1> Codeial Home Page</h1>
 
+<% if(locals.user){ %>
 <section id="feed-posts">
     <h4>Posts</h4>
 
@@ -22,3 +23,5 @@
     </ul>
 
 </section>
+
+<% } %>
