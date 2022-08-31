@@ -6,11 +6,11 @@ const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 
-// used for session cookie
+// used for session cookie in passport js
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
-const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo'); // to make session persistent, storing it in mongoStore
 
 // SCSS is new way of writing css
 const sassMiddleware = require('node-sass-middleware');
@@ -40,12 +40,12 @@ app.use(expressLayouts);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
-
+//use ejs view engine and set directory containing views to /views
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.use(session({
-    name: 'codeial',
+    name: 'codeial', //it will creeate a cookie named codeail
     // TODO change the secret before deployment in production mode
     secret: 'blahsomething', //key used to encrypt cookie
     saveUninitialized: false,

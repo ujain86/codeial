@@ -1,23 +1,29 @@
 <header>
-    Body Header
+    <!-- Body Header -->
 
-    <ul>
-        <% if(locals.user){ %>
-            <li>
-                <a href="/users/profile"> <%=user.name%> </a>
-            </li>
-            <li>
-                <a href="/users/signout">Sign Out</a>
-            </li>
+    <div id="logo">
+        <!-- <img src="../assets/images/logo.jpg" alt="Logo"> -->
+    </div>
 
-        <%} else{ %>
-            <li>
-                <a href="/users/signin">Sign In</a>
-            </li>
-            <li>
-                <a href="/users/signup">Sign Up</a>
-            </li>
+    <div id="ul">
+        <ul>
+            <% if(locals.user){ %>
+                <li>
+                    <a href="/users/profile"> <%=user.name%> </a>
+                </li>
+                <li>
+                    <a href="/users/signout">Sign Out</a>
+                </li>
 
-        <%} %>
-    </ul>
+            <%} else{ %>
+                <li>
+                    <a href="/users/signin">Sign In</a>
+                </li>
+                <li>
+                    <a href="/users/signup">Sign Up</a>
+                </li>
+
+            <%} %>
+        </ul>
+    </div>
 </header>
