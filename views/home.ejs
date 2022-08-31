@@ -9,6 +9,16 @@
         <button type="submit">Post</button>
     </form>
 
-    <p><%=post.content%></p>
+    <ul>
+        <% for(post of posts){ %>
+        <li>
+            <p> 
+                <%= post.content %> <br>
+                <small> <%= post.user.name %> </small>
+            </p>
+            
+        </li>
+        <% } %>
+    </ul>
 
 </section>
