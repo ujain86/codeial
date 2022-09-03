@@ -19,7 +19,14 @@ module.exports.home = function(req,res){
     // });
 
     ////to display all posts with user name by fetching details of user using objectID 
-    Post.find({}).populate('user').exec(function(err, posts){
+    Post.find({}).populate('user')
+    .populate({
+        path: 'comments',
+        populate:{
+            path: 'user'
+        }
+    })    
+    .exec(function(err, posts){
         if(err){
             console.log('Error in fetching posts from db');
             return;

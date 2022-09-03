@@ -27,3 +27,30 @@ module.exports.create = function(req,res){
         }
     });
 };
+
+module.exports.destroy = function(req,res){
+    Comment.findById(req.params.id, function(err,comment){
+        if(err){
+            console.log('error in finding the post');
+            return;
+        }
+        // here .id is used instead of ._id bcz it converts object id into string making it useful in comparison
+        if(comment.user == req.user.id){
+
+            let postId = comment.post;
+
+            comment.remove();
+
+            Post.findByIdAndUpdate( postId, { $pull: {comments: req.params.id}}, function(err,post){
+                if(err){
+                    console.log('error in deleting comment id from post');
+                    return;
+                }
+            });
+
+        }
+        
+            return res.redirect('back');
+        
+    });
+};
