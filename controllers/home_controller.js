@@ -1,7 +1,31 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 
-module.exports.home = function(req,res){
+module.exports.home = async function(req,res){
+
+    try{
+    let posts = await Post.find({}).populate('user')
+    .populate({
+        path: 'comments',
+        populate:{
+            path: 'user'
+        }
+    });
+    let users = await User.find({});
+
+    return res.render('home',{
+        title: 'Home',
+        posts: posts,
+        all_users: users
+        });
+    }
+    catch (err){
+        console.log('Error', err);
+        return;
+    }
+};
+
+
 
     // console.log(req.cookies);
     // return res.end('<h1>Express server is up</h1>');
@@ -21,35 +45,35 @@ module.exports.home = function(req,res){
     // });
 
     ////to display all posts with user name by fetching details of user using objectID 
-    let posts = Post.find({}).populate('user')
-    .populate({
-        path: 'comments',
-        populate:{
-            path: 'user'
-        }
-    })    
-    .exec(function(err, posts){
-        if(err){
-            console.log('Error in fetching posts from db');
-            return;
-        }
+//     Post.find({}).populate('user')
+//     .populate({
+//         path: 'comments',
+//         populate:{
+//             path: 'user'
+//         }
+//     })    
+//     .exec(function(err, posts){
+//         if(err){
+//             console.log('Error in fetching posts from db');
+//             return;
+//         }
 
-        User.find({}, function(err,users){
-            if(err){
-                console.log('error in finding all users');
-                return;
-            }
+//         User.find({}, function(err,users){
+//             if(err){
+//                 console.log('error in finding all users');
+//                 return;
+//             }
 
-            return res.render('home',{
-                title: 'Home',
-                posts: posts,
-                all_users: users
-            });
+//             return res.render('home',{
+//                 title: 'Home',
+//                 posts: posts,
+//                 all_users: users
+//             });
     
-        })
+//         })
 
         
     
-    });
+//     });
     
-};
+// };
