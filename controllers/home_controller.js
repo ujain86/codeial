@@ -1,6 +1,8 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports.home = function(req,res){
+
     // console.log(req.cookies);
     // return res.end('<h1>Express server is up</h1>');
 
@@ -19,7 +21,7 @@ module.exports.home = function(req,res){
     // });
 
     ////to display all posts with user name by fetching details of user using objectID 
-    Post.find({}).populate('user')
+    let posts = Post.find({}).populate('user')
     .populate({
         path: 'comments',
         populate:{
@@ -32,10 +34,21 @@ module.exports.home = function(req,res){
             return;
         }
 
-        return res.render('home',{
-            title: 'Home',
-            posts: posts
-        });
+        User.find({}, function(err,users){
+            if(err){
+                console.log('error in finding all users');
+                return;
+            }
+
+            return res.render('home',{
+                title: 'Home',
+                posts: posts,
+                all_users: users
+            });
+    
+        })
+
+        
     
     });
     
