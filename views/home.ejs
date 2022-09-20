@@ -2,30 +2,34 @@
 <h1> Codeial Home Page</h1>
 
 <% if(locals.user){ %>
-<section id="feed-posts">
-    <h4>Posts</h4>
+<div id="home-container">
+    <section id="feed-posts">
+        <h4>Posts</h4>
 
-    <form action="/posts/create" id="new-post-form" method="post">
-        <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
-        <button type="submit">Post</button>
-    </form>
+        <form action="/posts/create" id="new-post-form" method="post">
+            <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+            <button type="submit">Post</button>
+        </form>
 
-    <ul>
-        <% for(post of posts){ %>
-            <%- include('_posts.ejs') -%>
-        <% } %>
-    </ul>
-
-</section>
-
-<% } %>
-
-<section id="user-friends">
-    <% for(u of all_users){ %>
-
-    <p>
-        <a href="/users/profile/<%=u.id%>"><%= u.name %></a>
-    </p>
+        <div id="posts-list-container">
+            <ul>
+                <% for(post of posts){ %>
+                    <%- include('_posts.ejs') -%>
+                <% } %>
+            </ul>
+        </div>
+    </section>
 
     <% } %>
-</section>
+
+    <section id="user-friends">
+        <% for(u of all_users){ %>
+
+        <p>
+            <a href="/users/profile/<%=u.id%>"><%= u.name %></a>
+        </p>
+
+        <% } %>
+    </section>
+</div>
+<script src="/js/home_posts.js"></script>

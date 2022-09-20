@@ -13,7 +13,14 @@ module.exports.create = function(req,res){
             console.log('error in creating a new post');
             return;
         }
-
+        if(req.xhr){
+            return res.status(200).json({
+                data: {
+                    post: post
+            },
+            message: 'Post created!'
+        });
+        }
         console.log('****', post);
         return res.redirect('back');
     })
